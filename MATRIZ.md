@@ -1,39 +1,17 @@
-# Matriz de Estado y Cumplimiento Regulatorio (HormigasAIS)
+# Matriz de Estado Regulatorio (HormigasAIS)
 
-> **Aviso de Responsabilidad:** Este documento mapea la alineación técnica y arquitectónica del protocolo e infraestructura de HormigasAIS con el marco normativo vigente en El Salvador. No constituye asesoría legal formal.
+> Mapa del autor, con lectura propia de textos oficiales. No es asesoría legal ni una certificación.
 
----
+**Estados:** Pendiente · Por evaluar · Alineado por diseño (sin verificación externa) · Parcial · Verificado (requiere evidencia comprobable por terceros).
 
-### Convención de Estados
-* **Pendiente:** Requisito identificado, pendiente de gestión administrativa o formalización externa.
-* **En trámite:** Expediente o solicitud ingresada ante la autoridad competente (MINEC, ANIA, ACE).
-* **Verificado:** Condición o requisito cumplido con evidencia técnica, documental o de publicación comprobable (registro, hash, DOI, repositorio).
-* **Exento / Voluntario:** El marco normativo no impone obligación directa sobre la capa de software/SDK, pero la adscripción voluntaria aporta seguridad jurídica.
-
----
-
-## Matriz de Cumplimiento Normativo
-
-| Requisito | Ley, Norma y Artículo | Estado | Evidencia y Alineación Técnica |
+| Requisito | Base | Estado | Evidencia / qué falta |
 |---|---|---|---|
-| **Registro como Desarrollador / Proveedor de IA** | **D.L. 234** (reformado por D.L. 363, 2025), art. 10 y 19 / **Res. ANIA 0001/2025**, art. 12 | **Exento de Registro Obligatorio** *(Inscripción Voluntaria Pendiente)* | **Exención:** Proveedores de modelos de propósito general, SDKs, librerías y middleware de desarrollo (`lbh-sdk`, `@hormigasais/edge-starter`) están exentos del registro obligatorio.<br>**Aspiración Voluntaria:** Registro ante la Agencia Nacional de Inteligencia Artificial (ANIA) para acogerse a la exención de responsabilidad ante uso indebido por terceros (art. 19 D.L. 234). |
-| **Salvaguardas de Seguridad, Minimización y Ética** | **D.L. 234**, art. 5 y 19 / **D.L. 143** (*Ley de Ciberseguridad - ACE*) / **Res. ANIA 0001/2025** | **Verificado (Por Diseño)** | **Arquitectura:** Cifrado AES-256, firmas Ed25519 (`id_ed25519_clhq_signing`), aislamiento estricto en sandbox local (`SANDBOX_CUANTICO_ISO`), minimización de datos y privacidad por diseño (*offline-first*).<br>**Documentación:** `GOVERNANCE.md`, `SECURITY_MODEL.md`, `lbh_cert_status.json`. |
-| **Incentivos Fiscales en Innovación y Tecnología** | **D.L. 722** (*Ley de Fomento a la Innovación y Manufactura de Tecnologías*) y **D.L. 234** | **Pendiente de Presentar** | Requiere estructuración y presentación de expediente técnico ante el Ministerio de Economía (MINEC) y Hacienda para la emisión del Acuerdo de Calificación formal (exenciones de ISR, IVA y aranceles). |
-| **Protección y Tratamiento de Datos Personales** | **D.L. 144** (*Ley para la Protección de Datos Personales - ACE*) / **D.L. 234**, art. 22 | **Verificado (Cero Nube Obligatoria)** | Procesamiento puramente local (*edge computing* en nodo sovereign) sin telemetría ni transmisión forzada a terceros; uso de datos locales y anonimizados en estricto cumplimiento con el principio de minimización. |
-| **Depósito Criptográfico e Integridad de Código** | **Res. ANIA 0001/2025**, art. 12, num. 2 (*Sello de Hashes Criptográficos*) | **Verificado** | Publicación de la especificación oficial del protocolo en Zenodo (**DOI: 10.5281/zenodo.19177759**), paquetes verificados en PyPI y npm, y commits firmados criptográficamente por el autor. |
-| **Revisión Legal Especializada en El Salvador** | Marco Normativo de IA (ANIA), Ciberseguridad y Protección de Datos (ACE) | **Pendiente** | Validación final o dictamen técnico-legal por un profesional del derecho salvadoreño especializado en el régimen regulatorio tecnológico. |
-
----
-
-## Notas de Alineación Jurídico-Técnica para la Colonia de Nodos
-
-1. **Exención vs. Registro Voluntario (D.L. 234 / ANIA):**
-   * El Decreto 234 y la Resolución 0001/2025 de la ANIA delimitan el registro obligatorio para soluciones finales de IA que tomen decisiones automatizadas de alto impacto. 
-   * Dado que HormigasAIS opera como protocolo de comunicación binaria (LBH), middleware y SDK en el borde, califica en la categoría de **herramientas de infraestructura**, estando exenta del registro obligatorio. No obstante, el registro voluntario permite blindar la responsabilidad del desarrollador según el Art. 19 del D.L. 234.
-
-2. **Ciberseguridad y Datos Personales (D.L. 143 y D.L. 144 / ACE):**
-   * La Agencia de Ciberseguridad del Estado (ACE) regula tanto el estándar de ciberseguridad (D.L. 143) como el tratamiento de datos personales (D.L. 144). 
-   * La filosofía *offline-first* y la ejecución local en hardware ARM64/Edge de HormigasAIS garantizan que los datos no circulen por servidores de terceros, cumpliendo de forma nativa por arquitectura (*Compliance by Design*) con las exigencias del D.L. 144.
-
-3. **Incentivos del D.L. 722 (MINEC / Hacienda):**
-   * El D.L. 722 permite acceder a exenciones tributarias de hasta 15 años para el desarrollo de software, inteligencia artificial y manufactura de hardware/embebidos, previa calificación del MINEC.
+| Registro obligatorio de IA | Res. ANIA 0001/2025, arts. 11–13 | Lectura propia: no aplica (confirmar) | El art. 12 (a) y (b) excluye a proveedores de propósito general y a herramientas y marcos de desarrollo, salvo que el proveedor sea también operador en los usos del art. 11. Falta confirmar que ningún servicio toma decisiones consecuenciales en esos sectores. |
+| Registro voluntario (salvaguardas del art. 19) | D.L. 234, art. 19; Res. art. 11 | Pendiente | Sin registro. Las salvaguardas son condicionadas y la Resolución las vincula al registro voluntario. Evidencia futura: constancia. |
+| Esfuerzos razonables: seguridad, minimización, ética y documentación | D.L. 234, art. 5; Res. arts. 5 y 9 | Alineado por diseño (sin verificación externa) | GOVERNANCE.md. Falta: sección pública "Limitaciones y uso seguro" en el SDK y descripción de medidas de seguridad sin rutas ni nombres de claves. |
+| Datos personales de terceros | D.L. 144 | Por evaluar | Falta: inventario de servicios que tratan datos de otras personas (reservas, teléfonos, mensajería), base legal y aviso de privacidad. |
+| Ciberseguridad | D.L. 143 | Por evaluar | Falta confirmar si aplica a un desarrollador particular. |
+| Incentivos fiscales | D.L. 722, arts. 5, 6, 7, 9 y 10 | Por evaluar elegibilidad | Requiere NIT, actividad del art. 6, nueva inversión, Acuerdo de Calificación (Ministerio de Economía), contabilidad separada y 5 % a I+D+i. Evaluar con contador o abogado antes de presentar. |
+| Depósito de hashes o código sellado | Res. ANIA 0001/2025, art. 20 b) | Parcial | DOI de Zenodo y [snapshots](./evidencias). Falta decidir si Zenodo o GitHub cuentan como "tercero de confianza" o depositar ante la ANIA. |
+| Disponibilidad pública de documentos, DOI y paquetes (no es requisito legal) | — | Verificado el 2026-10-29 | [snapshot-20261029-1027](./evidencias/snapshot-20261029-1027.md) |
+| Revisión por abogado salvadoreño | — | Pendiente | Dictamen. |
